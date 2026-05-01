@@ -4,65 +4,128 @@
     <title>Images</title>
 
     <style>
-        body { margin:0; background:#0d0d0d; color:white; font-family:Arial; }
-        h1 { text-align:center; padding:20px; }
+        body {
+            margin:0;
+            background:#0d0d0d;
+            color:white;
+            font-family:Arial, sans-serif;
+        }
+
+        h1 {
+            text-align:center;
+            padding:20px;
+        }
 
         .gallery {
             display:grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap:20px;
             padding:20px;
         }
 
-        
-        .image-box { height:220px; overflow:hidden; border-radius:12px; }
+        /* Mobile view */
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .image-box {
+            height:220px;
+            overflow:hidden;
+            border-radius:12px;
+        }
 
         .image-box img {
-            width:100%; height:100%; object-fit:cover; cursor:pointer;
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            cursor:pointer;
+            transition:0.3s;
         }
 
+        .image-box img:hover {
+            transform:scale(1.1);
+        }
+
+        /* FULLSCREEN */
         #popup {
-            position:fixed; top:0; left:0; width:100%; height:100%;
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
             background:rgba(0,0,0,0.95);
-            display:none; justify-content:center; align-items:center;
+            display:none;
+            justify-content:center;
+            align-items:center;
         }
 
-        #popup img { max-width:90%; max-height:90%; }
+        #popup img {
+            max-width:90%;
+            max-height:90%;
+        }
+
+        #closeBtn {
+            position:absolute;
+            top:20px;
+            right:30px;
+            font-size:30px;
+            cursor:pointer;
+        }
 
     </style>
 </head>
 
 <body>
 
-<h1>📸 Aryan's Gallery</h1>
+<h1>📸 Aryan's Image Gallery</h1>
 
 <div class="gallery" id="gallery"></div>
 
-<div id="popup" onclick="this.style.display='none'">
+<!-- POPUP -->
+<div id="popup">
+    <span id="closeBtn" onclick="closeImage()">✖</span>
     <img id="popup-img">
 </div>
 
 <script>
-let images = ["jpic1.jpeg","jpic2.jpeg","jpic3.jpeg"];
+window.onload = function(){
+
+let images = [
+    "jpic1.jpeg",
+    "jpic2.jpeg",
+    "jpic3.jpeg"
+];  // 👈 Only edit this
+
 let gallery = document.getElementById("gallery");
 
-// SAFE CHECK
-if(gallery){
-    images.forEach((img)=>{
-        let box = document.createElement("div");
-        box.className = "image-box";
+// AUTO CREATE GALLERY
+images.forEach((img, index) => {
+    let box = document.createElement("div");
+    box.className = "image-box";
 
-        let image = document.createElement("img");
-        image.src = img;
+    let image = document.createElement("img");
+    image.src = img;
 
-        image.onclick = function(){
-            document.getElementById("popup").style.display="flex";
-            document.getElementById("popup-img").src = img;
-        };
+    image.onclick = function(){
+        openImage(img);
+    };
 
-        box.appendChild(image);
-        gallery.appendChild(box);
-    });
+    box.appendChild(image);
+    gallery.appendChild(box);
+});
+
+// FUNCTIONS
+window.openImage = function(src){
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("popup-img").src = src;
+}
+
+window.closeImage = function(){
+    document.getElementById("popup").style.display = "none";
+}
+
 }
 </script>
 
