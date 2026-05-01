@@ -2,20 +2,67 @@
 <html>
 <head>
     <title>Aryan's Gallery</title>
+    <style>
+        body { margin:0; font-family:Arial; background:#111; color:white; }
+
+        header {
+            text-align:center;
+            padding:20px;
+            font-size:28px;
+            background:black;
+        }
+
+        .container {
+            display:flex;
+        }
+
+        .sidebar {
+            width:200px;
+            background:#1a1a1a;
+            padding:20px;
+            height:100vh;
+        }
+
+        .sidebar a {
+            display:block;
+            color:white;
+            margin:20px 0;
+            text-decoration:none;
+        }
+
+        .main {
+            flex:1;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .box {
+            border:2px solid white;
+            padding:40px;
+            text-align:center;
+        }
+    </style>
 </head>
 
-<body style="background:black; color:white; text-align:center;">
+<body>
 
-    <h1>🔥 Aryan's Gallery 🔥</h1>
+<header>🔥 Welcome to Aryan's Gallery 🔥</header>
 
-    <h2>📸 Photos</h2>
-    <img src="photo1.jpg" width="300">
-    <img src="photo2.jpg" width="300">
+<div class="container">
+    
+    <div class="sidebar">
+        <a href="images.html">📸 Images</a>
+        <a href="videos.html">🎥 Videos</a>
+    </div>
 
-    <h2>🎥 Videos</h2>
-    <video width="300" controls>
-        <source src="video1.mp4" type="video/mp4">
-    </video>
+    <div class="main">
+        <div class="box">
+            Click on Images or Videos to explore 🔥
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>
