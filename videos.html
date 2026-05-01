@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Videos</title>
+
     <style>
         body { background:#111; color:white; font-family:Arial; }
 
@@ -22,12 +23,11 @@
 
         video {
             width:100%;
+            cursor:pointer;
         }
 
         .rec video {
-            width:100%;
             margin-bottom:10px;
-            cursor:pointer;
         }
     </style>
 </head>
@@ -49,7 +49,7 @@
 
         <div class="rec">
             <video onclick="playVideo('jv1.mp4')">
-                <source src="jv1.mp4">
+                <source src="jv1.mp4" type="video/mp4">
             </video>
         </div>
 
@@ -60,7 +60,9 @@
 
 <script>
 function playVideo(src){
-    document.getElementById("player").src = src;
+    let player = document.getElementById("player");
+    player.src = src;
+    player.play();
 }
 </script>
 
