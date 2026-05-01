@@ -4,139 +4,64 @@
     <title>Images</title>
 
     <style>
-        body {
-            margin:0;
-            background:#0d0d0d;
-            color:white;
-            font-family:Arial, sans-serif;
-        }
-
-        h1 {
-            text-align:center;
-            padding:20px;
-        }
+        body { margin:0; background:#0d0d0d; color:white; font-family:Arial; }
+        h1 { text-align:center; padding:20px; }
 
         .gallery {
             display:grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
             gap:20px;
             padding:20px;
         }
 
-        .image-box {
-            height:220px;
-            overflow:hidden;
-            border-radius:12px;
-        }
+        .image-box { height:220px; overflow:hidden; border-radius:12px; }
 
         .image-box img {
-            width:100%;
-            height:100%;
-            object-fit:cover;
-            cursor:pointer;
-            transition:0.3s;
+            width:100%; height:100%; object-fit:cover; cursor:pointer;
         }
 
-        .image-box img:hover {
-            transform:scale(1.1);
-        }
-
-        /* FULLSCREEN */
         #popup {
-            position:fixed;
-            top:0;
-            left:0;
-            width:100%;
-            height:100%;
+            position:fixed; top:0; left:0; width:100%; height:100%;
             background:rgba(0,0,0,0.95);
-            display:none;
-            justify-content:center;
-            align-items:center;
+            display:none; justify-content:center; align-items:center;
         }
 
-        #popup img {
-            max-width:90%;
-            max-height:90%;
-        }
-
-        #closeBtn {
-            position:absolute;
-            top:20px;
-            right:30px;
-            font-size:30px;
-            cursor:pointer;
-        }
-
-        .nav-btn {
-            position:absolute;
-            top:50%;
-            transform:translateY(-50%);
-            font-size:40px;
-            cursor:pointer;
-        }
-
-        #prev { left:20px; }
-        #next { right:20px; }
+        #popup img { max-width:90%; max-height:90%; }
 
     </style>
 </head>
 
 <body>
 
-<h1>📸 Aryan's Image Gallery</h1>
+<h1>📸 Aryan's Gallery</h1>
 
 <div class="gallery" id="gallery"></div>
 
-<!-- POPUP -->
-<div id="popup">
-    <span id="closeBtn" onclick="closeImage()">✖</span>
-    <span id="prev" class="nav-btn" onclick="prevImage()">❮</span>
+<div id="popup" onclick="this.style.display='none'">
     <img id="popup-img">
-    <span id="next" class="nav-btn" onclick="nextImage()">❯</span>
 </div>
 
 <script>
-window.onload = function(){
-
-let images = ["jpic1.jpeg", "jpic2.jpeg"];  // 👈 ONLY EDIT THIS
-let currentIndex = 0;
-
+let images = ["jpic1.jpeg","jpic2.jpeg"];
 let gallery = document.getElementById("gallery");
 
-// AUTO CREATE GALLERY
-images.forEach((img, index) => {
-    let box = document.createElement("div");
-    box.className = "image-box";
+// SAFE CHECK
+if(gallery){
+    images.forEach((img)=>{
+        let box = document.createElement("div");
+        box.className = "image-box";
 
-    let image = document.createElement("img");
-    image.src = img;
-    image.onclick = () => openImage(index);
+        let image = document.createElement("img");
+        image.src = img;
 
-    box.appendChild(image);
-    gallery.appendChild(box);
-});
+        image.onclick = function(){
+            document.getElementById("popup").style.display="flex";
+            document.getElementById("popup-img").src = img;
+        };
 
-// FUNCTIONS
-window.openImage = function(index){
-    currentIndex = index;
-    document.getElementById("popup").style.display = "flex";
-    document.getElementById("popup-img").src = images[currentIndex];
-}
-
-window.closeImage = function(){
-    document.getElementById("popup").style.display = "none";
-}
-
-window.nextImage = function(){
-    currentIndex = (currentIndex + 1) % images.length;
-    document.getElementById("popup-img").src = images[currentIndex];
-}
-
-window.prevImage = function(){
-    currentIndex = (currentIndex - 1 + images.length) % images.length;
-    document.getElementById("popup-img").src = images[currentIndex];
-}
-
+        box.appendChild(image);
+        gallery.appendChild(box);
+    });
 }
 </script>
 
