@@ -4,7 +4,9 @@
     <title>Videos</title>
 
     <style>
-        body { background:#111; color:white; font-family:Arial; }
+        body { background:#111; color:white; font-family:Arial; margin:0; }
+
+        h1 { text-align:center; padding:20px; }
 
         .container {
             display:flex;
@@ -23,34 +25,30 @@
 
         video {
             width:100%;
-            cursor:pointer;
         }
 
         .rec video {
             margin-bottom:10px;
+            cursor:pointer;
         }
     </style>
 </head>
 
 <body>
 
-<h1 style="text-align:center;">🎥 Videos</h1>
+<h1>🎥 Videos</h1>
 
 <div class="container">
 
     <div class="main-video">
-        <video id="player" controls>
-            <source src="jv1.mp4" type="video/mp4">
-        </video>
+        <video id="player" controls src="jv1.mp4"></video>
     </div>
 
     <div class="sidebar">
         <h3>Recommended</h3>
 
         <div class="rec">
-            <video onclick="playVideo('jv1.mp4')">
-                <source src="jv1.mp4" type="video/mp4">
-            </video>
+            <video onclick="playVideo('jv1.mp4')" src="jv1.mp4"></video>
         </div>
 
         <p>No more content</p>
@@ -60,8 +58,9 @@
 
 <script>
 function playVideo(src){
-    let player = document.getElementById("player");
+    const player = document.getElementById("player");
     player.src = src;
+    player.load();
     player.play();
 }
 </script>
