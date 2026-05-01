@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Videos</title>
+    <style>
+        body { background:#111; color:white; font-family:Arial; }
+
+        .container {
+            display:flex;
+        }
+
+        .main-video {
+            flex:3;
+            padding:20px;
+        }
+
+        .sidebar {
+            flex:1;
+            padding:20px;
+            background:#1a1a1a;
+        }
+
+        video {
+            width:100%;
+        }
+
+        .rec video {
+            width:100%;
+            margin-bottom:10px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1 style="text-align:center;">🎥 Videos</h1>
+
+<div class="container">
+
+    <div class="main-video">
+        <video id="player" controls>
+            <source src="video1.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="sidebar">
+        <h3>Recommended</h3>
+
+        <div class="rec">
+            <video onclick="playVideo('video1.mp4')">
+                <source src="video1.mp4">
+            </video>
+        </div>
+
+        <p>No more content</p>
+    </div>
+
+</div>
+
+<script>
+function playVideo(src){
+    document.getElementById("player").src = src;
+}
+</script>
+
+</body>
+</html>
