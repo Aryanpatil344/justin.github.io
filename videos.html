@@ -30,12 +30,12 @@
             overflow:hidden;
         }
 
-        /* 🔥 MAIN VIDEO FULL BOX */
         .main video {
-            width:100%;
-            height:100%;
-            object-fit:cover; /* fills like your drawing */
-        }
+    width:100%;
+    height:100%;
+    object-fit: contain;   /* ✅ FIX */
+    background:black;      /* optional, fills empty space */
+}
 
         .sidebar {
             flex:1.5;
