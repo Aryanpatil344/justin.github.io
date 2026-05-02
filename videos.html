@@ -1,72 +1,119 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Videos</title>
+    <title>Dynamic Video Layout</title>
 
     <style>
-        body { background:#111; color:white; font-family:Arial; margin:0; }
+        body {
+            margin:0;
+            background:#ddd;
+            font-family:Arial;
+        }
 
-        h1 { text-align:center; padding:20px; }
+        .wrapper {
+            border:5px solid black;
+            margin:20px;
+            padding:20px;
+            box-sizing:border-box;
+        }
 
         .container {
             display:flex;
+            gap:20px;
         }
 
-        .main-video {
+        .main {
             flex:3;
-            padding:20px;
+            border:5px solid black;
+            padding:10px;
+        }
+
+        .main video {
+            width:100%;
+            height:100%;
         }
 
         .sidebar {
-            flex:1;
-            padding:20px;
-            background:#1a1a1a;
+            flex:1.2;
+            display:grid;
+            grid-template-columns:repeat(2, 1fr);
+            gap:15px;
         }
 
-        video {
+        .box {
+            border:5px solid black;
+            aspect-ratio:1/1;
+            overflow:hidden;
+        }
+
+        .box video {
             width:100%;
+            height:100%;
+            object-fit:cover;
+            cursor:pointer;
         }
 
-        .rec video {
-            margin-bottom:10px;
-            cursor:pointer;
+        /* Mobile */
+        @media (max-width:768px) {
+            .container {
+                flex-direction:column;
+            }
+
+            .sidebar {
+                grid-template-columns:repeat(3, 1fr);
+            }
         }
     </style>
 </head>
 
 <body>
 
-<h1>🎥 Videos</h1>
+<div class="wrapper">
 
-<div class="container">
+    <div class="container">
 
-    <div class="main-video">
-        <video id="player" controls src="jv1.mp4"></video>
-    </div>
-
-    <div class="sidebar">
-        <h3>Recommended</h3>
-
-        <div class="rec">
-            <video onclick="playVideo('jv1.mp4')" src="jv1.mp4"></video>
+        <!-- MAIN VIDEO -->
+        <div class="main">
+            <video id="player" controls></video>
         </div>
 
-        <div class="rec">
-            <video onclick="playVideo('jv2.mp4')" src="jv2.mp4"></video>
-        </div>
+        <!-- SIDEBAR -->
+        <div class="sidebar" id="videoList"></div>
 
-        <p>No more content</p>
     </div>
 
 </div>
 
 <script>
-function playVideo(src){
-    const player = document.getElementById("player");
-    player.src = src;
-    player.load();
-    player.play();
-}
+/* 🔥 JUST ADD VIDEOS HERE IN FUTURE */
+const videos = [
+    "jv1.mp4",
+    "jv2.mp4"
+];
+
+/* Load videos dynamically */
+const list = document.getElementById("videoList");
+const player = document.getElementById("player");
+
+/* Set first video as default */
+player.src = videos[0];
+
+videos.forEach(src => {
+    const box = document.createElement("div");
+    box.className = "box";
+
+    const vid = document.createElement("video");
+    vid.src = src;
+
+    vid.onclick = () => {
+        player.src = src;
+        player.load();
+        player.play();
+    };
+
+    box.appendChild(vid);
+    list.appendChild(box);
+});
 </script>
 
 </body>
