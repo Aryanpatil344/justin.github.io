@@ -14,37 +14,39 @@
             border:5px solid black;
             margin:20px;
             padding:20px;
+            height:90vh; /* 🔥 IMPORTANT */
             box-sizing:border-box;
         }
 
         .container {
             display:flex;
             gap:20px;
-            align-items:flex-start;
+            height:100%; /* fill wrapper */
         }
 
         .main {
             flex:3;
             border:5px solid black;
-            padding:10px;
+            overflow:hidden;
         }
 
+        /* 🔥 MAIN VIDEO FULL BOX */
         .main video {
             width:100%;
-            height:auto;
+            height:100%;
+            object-fit:cover; /* fills like your drawing */
         }
 
-        /* 🔥 FIXED 2 PER ROW */
         .sidebar {
             flex:1.5;
             display:grid;
-            grid-template-columns:repeat(2, 1fr); /* ALWAYS 2 */
+            grid-template-columns:repeat(2, 1fr);
             gap:15px;
+            align-content:start; /* keep items at top */
         }
 
         .box {
             border:5px solid black;
-            width:100%;
             aspect-ratio:1/1;
             overflow:hidden;
         }
@@ -58,12 +60,20 @@
 
         /* MOBILE */
         @media (max-width:768px) {
+            .wrapper {
+                height:auto; /* allow scroll on mobile */
+            }
+
             .container {
                 flex-direction:column;
             }
 
+            .main {
+                height:300px; /* fixed height for mobile */
+            }
+
             .sidebar {
-                grid-template-columns:repeat(2, 1fr); /* still 2 on mobile */
+                grid-template-columns:repeat(2, 1fr);
             }
         }
     </style>
